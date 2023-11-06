@@ -124,3 +124,17 @@ Response:
 4. Start the development server using the command python manage.py runserver.
 
 5. You can now send requests to the API endpoints from your application.
+
+# Running the project with Docker
+
+1. Install Docker on your machine if you haven't done so already.
+
+2. Build the Docker image using the following command:
+
+docker build -t phone-auth-service .
+
+3. Run the Docker container with the following command:
+
+docker run -p 8000:8000 phone-auth-service
+
+4. Now you can send requests to the API endpoints from your application.
