@@ -1,66 +1,84 @@
 # Phone Authentication Service API
 
-API для функционала авторизации и управления пользователями через номера телефонов.
+This project implements an API for phone number authentication and user management functionality.
 
-## Эндпоинты (Endpoints)
+## Project Description
 
-### Аутентификация пользователя
+This project provides functionality for user authentication through phone numbers, activation and management of invite codes, and user interaction via an API.
+
+## Installation and Project Setup
+
+1. Install all the dependencies mentioned in the requirements.txt file:
+
+   pip install -r requirements.txt
+
+2. Apply the database migrations:
+
+   python manage.py migrate
+
+3. Run the development server:
+
+   python manage.py runserver
+
+## Endpoints
+
+### User Authentication
 
 URL: /auth/
 
-Метод: POST
+Method: POST
 
-Описание: Проверяет наличие пользователя в базе данных и возвращает одноразовый код для подтверждения авторизации.
+Description: Checks if the user exists in the database and returns a one-time code for authorization.
 
-Параметры запроса:
-- phone_number (обязательный) - номер телефона пользователя.
+Request Parameters:
+- phone_number (required) - User's phone number.
 
-Пример запроса:
+Sample Request:
 
 {
     "phone_number": "89123456789"
 }
 
-Ответ:
+Response:
 
 {
     "otp_code": "1234"
 }
 
-### Обновление кода аутентификации
+### Update Authentication Code
 
 URL: /auth/
 
-Метод: PUT
+Method: PUT
 
-Описание: Проверяет подтверждающий код аутентификации пользователя и возвращает access token для доступа к другим эндпоинтам API.
+Description: Verifies the user's authentication code and returns an access token for further API access.
 
-Параметры запроса:
-- phone_number (обязательный) - номер телефона пользователя.
-- otp_code (обязательный) - проверочный код, полученный после аутентификации.
+Request Parameters:
+- phone_number (required) - User's phone number.
+- otp_code (required) - Verification code received after authentication.
 
-Пример запроса:
+Sample Request:
 
 {
     "phone_number": "89123456789",
     "otp_code": "1234"
 }
 
-Ответ:
+Response:
 
 {
     "access_token": "..."
 }
 
-### Получение профиля пользователя
+### User Profile Retrieval
 
 URL: /profile/
 
-Метод: GET
+Method: GET
 
-Описание: Возвращает информацию о профиле пользователя, включая его номер телефона и другую информацию.
+Description: Returns information about the user's profile, including their phone number and other details.
 
-Пример ответа:
+Sample Response:
 
 {
     "phone_number": "89123456789",
@@ -72,35 +90,37 @@ URL: /profile/
     ]
 }
 
-### Активация чужого инвайт кода
+### Activation of Another User's Invite Code
 
 URL: /profile/
 
-Метод: POST
+Method: POST
 
-Описание: Позволяет пользователю активировать чужой инвайт код в своем профиле.
+Description: Allows the user to activate someone else's invite code in their own profile.
 
-Параметры запроса:
-- other_profile_invite_code (обязательный) - чужой инвайт код.
+Request Parameters:
+- other_profile_invite_code (required) - Another user's invite code.
 
-Пример запроса:
+Sample Request:
 
 {
     "other_profile_invite_code": "EFGH456"
 }
 
-Ответ:
+Response:
 
 {
-    "message": "Чужой инвайт код был успешно активирован в профиле пользователя."
+    "message": "The other user's invite code was successfully activated in the user's profile."
 }
 
-## Запуск проекта
+## Running the Project
 
-1. Установите все необходимые зависимости, указанные в файле requirements.txt.
+1. Install all the required dependencies mentioned in the requirements.txt file.
 
-2. Произведите миграции базы данных командой python manage.py migrate.
+2. Apply the necessary database configurations and settings, ensuring the correct environment variables are set.
 
-3. Запустите сервер разработки командой python manage.py runserver.
+3. Execute the command python manage.py migrate to apply the database migrations.
 
-4. Теперь вы можете отправлять запросы к эндпоинтам API из вашего приложения.
+4. Start the development server using the command python manage.py runserver.
+
+5. You can now send requests to the API endpoints from your application.
