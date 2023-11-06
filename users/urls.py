@@ -4,7 +4,6 @@ from users.views import UserAuthenticationView, UserProfileView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-
 app_name = UsersConfig.name
 
 schema_view = get_schema_view(
