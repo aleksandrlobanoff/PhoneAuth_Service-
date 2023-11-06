@@ -1,10 +1,13 @@
 import random
 
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from users.models import User
+from users.serializers import UserSerializer
 
 
 class UserAuthenticationView(APIView):
@@ -38,3 +41,17 @@ class UserAuthenticationView(APIView):
         access_token = str(refresh.access_token)
 
         return Response({'access_token': access_token})
+
+
+class UserProfileView(RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        user = self.request.user
+
+        serialized_data = {
+            'phone_number': user.phone_number,
+        }
+
+        return serialized_data
