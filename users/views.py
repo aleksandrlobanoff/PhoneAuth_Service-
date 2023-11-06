@@ -26,6 +26,9 @@ class UserAuthenticationView(APIView):
             invite_code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=6))
             otp_code = random.randint(1000, 9999)
 
+            user = User.objects.create(phone_number=phone_number, invite_code=invite_code,
+                                       otp_code=str(otp_code))  # Сохранение профиля в БД
+
             return Response({'otp_code': otp_code, 'invite_code': invite_code})
 
     def put(self, request):
@@ -67,3 +70,12 @@ class UserProfileView(RetrieveAPIView):
         }
 
         return serialized_data
+
+    def post(self, request):
+        user = self.request.user
+        other_profile_invite_code = request.data.get('other_profile_invite_code')
+
+        user.other_profile_invite_code = other_profile_invite_code
+        user.save()
+
+        return Response({'message': 'Чужой инвайт-код был успешно активирован в профиле пользователя.'})
