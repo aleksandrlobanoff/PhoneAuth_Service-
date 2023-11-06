@@ -97,7 +97,9 @@ URL: /profile/
 
 ## Запуск проекта
 
-1. Установите все необходимые зависимости, указанные в файле requirements.txt.
+1. Установите все необходимые зависимости, указанные в файле requirements.txt
+- pip install -r requirements.txt 
+- или poetry install (если используете Poetry)
 
 2. Произведите миграции базы данных командой python manage.py migrate.
 
