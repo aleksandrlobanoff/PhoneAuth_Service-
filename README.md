@@ -1,4 +1,4 @@
-# Phone Authentication Service API
+# Phone Authorization Service API
 
 This project implements an API for phone number authentication and user management functionality.
 

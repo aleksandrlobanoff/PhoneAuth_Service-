@@ -1,4 +1,4 @@
-# Phone Authentication Service API
+# Phone Authorization Service API
 
 API для функционала авторизации и управления пользователями через номера телефонов.
 
