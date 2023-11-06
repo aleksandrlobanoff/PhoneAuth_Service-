@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 from dotenv import load_dotenv
 import os
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
-    'users'
+    'users',
     'rest_framework_simplejwt',
 
 ]
@@ -143,3 +143,5 @@ REST_FRAMEWORK = {
            'rest_framework_simplejwt.authentication.JWTAuthentication',
        ],
    }
+
+AUTH_USER_MODEL = 'users.User'

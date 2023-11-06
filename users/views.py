@@ -1,4 +1,5 @@
 import random
+import string
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,9 +19,9 @@ class UserAuthenticationView(APIView):
 
             return Response({'otp_code': otp_code})
         else:
-            invite_code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=6))
+            # invite_code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=6))
             otp_code = random.randint(1000, 9999)
 
-            user = User.objects.create(phone_number=phone_number, invite_code=invite_code, otp_code=str(otp_code))
+            user = User.objects.create(phone_number=phone_number, otp_code=str(otp_code))
 
-            return Response({'otp_code': otp_code, 'invite_code': invite_code})
+            return Response({'otp_code': otp_code})
