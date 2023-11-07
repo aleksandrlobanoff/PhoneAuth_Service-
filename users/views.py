@@ -1,5 +1,6 @@
 import random
 import string
+import time
 
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
@@ -20,6 +21,9 @@ class UserAuthenticationView(APIView):
             otp_code = random.randint(1000, 9999)
             user.otp_code = str(otp_code)
             user.save()
+
+            # Имитация отправки кода авторизации
+            time.sleep(2)
 
             return Response({'otp_code': otp_code})
         else:
