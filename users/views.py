@@ -25,7 +25,9 @@ class UserAuthenticationView(APIView):
             # Имитация отправки кода авторизации
             time.sleep(2)
 
-            return Response({'otp_code': otp_code})
+            print('otp_code:', otp_code)
+
+            return Response({'message': 'Code sent successfully'})
         else:
             invite_code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=6))
             otp_code = random.randint(1000, 9999)
@@ -33,9 +35,11 @@ class UserAuthenticationView(APIView):
             user = User.objects.create(phone_number=phone_number, invite_code=invite_code,
                                        otp_code=str(otp_code))  # Сохранение профиля в БД
 
-            return Response({'otp_code': otp_code, 'invite_code': invite_code})
+            print('otp_code:', otp_code)
 
-    def put(self, request):
+            return Response({'message': 'Code created successfully'})
+
+    def get(self, request):
         phone_number = request.data.get('phone_number')
         otp_code = request.data.get('otp_code')
 
