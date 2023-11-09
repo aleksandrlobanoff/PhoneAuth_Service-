@@ -1,6 +1,6 @@
 from django.urls import path
 from users.apps import UsersConfig
-from users.views import UserAuthenticationView, UserProfileView
+from users.views import UserAuthenticationView, UserProfileView, VerificationView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -15,6 +15,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('varify/', VerificationView.as_view(), name='user_authentication'),
     path('auth/', UserAuthenticationView.as_view(), name='user_authentication'),
     path('profile/', UserProfileView.as_view(), name='user_profile'),
 

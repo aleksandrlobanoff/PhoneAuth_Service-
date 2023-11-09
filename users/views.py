@@ -12,7 +12,7 @@ from users.models import User
 from users.serializers import UserSerializer
 
 
-class UserAuthenticationView(APIView):
+class VerificationView(APIView):
     def post(self, request):
         phone_number = request.data.get('phone_number')
         user = User.objects.filter(phone_number=phone_number).first()
@@ -28,6 +28,7 @@ class UserAuthenticationView(APIView):
             print('otp_code:', otp_code)
 
             return Response({'message': 'Code sent successfully'})
+
         else:
             invite_code = ''.join(random.choices(string.ascii_uppercase + string.ascii_lowercase + string.digits, k=6))
             otp_code = random.randint(1000, 9999)
@@ -39,7 +40,9 @@ class UserAuthenticationView(APIView):
 
             return Response({'message': 'Code created successfully'})
 
-    def get(self, request):
+
+class UserAuthenticationView(APIView):
+    def post(self, request):
         phone_number = request.data.get('phone_number')
         otp_code = request.data.get('otp_code')
 
