@@ -3,6 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+      Кастомная модель пользователя, расширяющая класс AbstractUser,
+    добавлены необходимые поля для хранения информации о коде подтверждения, инвайт-коде и связанных профилях.
+    """
     username = None
     email = None
 
@@ -21,6 +25,9 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
     def check_otp_code(self, otp_code):
+        """
+        Метод проверяет соответствие кода подтверждения пользовательскому коду подтверждения.
+        """
         return self.otp_code == otp_code
 
     def __str__(self):
